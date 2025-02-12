@@ -21,14 +21,14 @@ public class ViewEndPoint {
     }
 
     @PutMapping("/produto")
-    public String putProduto(Produto p) {
-        c1.atualizarProduto();
+    public String putProduto(@RequestBody Produto p) {
+        c1.atualizarProduto(p);
         return "Produto atualizado";
     }
 
     @DeleteMapping("/produto")
-    public String deleteProduto() {
-        c1.deletarProduto();
+    public String deleteProduto(@RequestBody Produto p) {
+        c1.deletarProduto(p);
         return "Produto deletado";
     }
 }
