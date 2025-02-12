@@ -1,27 +1,34 @@
-package com.example.senai.controller;
+package com.example.senai.view;
 
-import com.example.senai.database.BancoDeProdutos;
+import com.example.senai.controller.Controller;
 import com.example.senai.model.Produto;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Scanner;
 
-public class Controller {
-    Scanner teclado = new Scanner(System.in);
-    BancoDeProdutos bp = new BancoDeProdutos();
-
-    public void inserirNoBanco(Produto p) {
-        bp.insert(p);
+@RestController
+public class ViewEndPoint {
+    Controller c1 = new Controller();
+    @GetMapping("/produto")
+    public List<Produto> getProduto() {
+        return c1.listarTodosProdutos();
     }
 
-    public List<Produto> listarTodosProdutos() {
-        return bp.findAll();
+    @PostMapping("/produto")
+    public String postProduto(Produto p) {
+        c1.inserirNoBanco(p);
+        return "Produto adicionado";
     }
 
-    public void atualizarProduto() {
-        bp.update(p);
+    @PutMapping("/produto")
+    public String putProduto(@RequestBody Produto p) {
+        c1.atualizarProduto(p);
+        return "Produto atualizado";
     }
-    public void deletarProduto(){
-        bp.delete(teclado.nextInt());
+
+    @DeleteMapping("/produto")
+    public String deleteProduto(@RequestBody Produto p) {
+        c1.deletarProduto(p);
+        return "Produto deletado";
     }
 }
